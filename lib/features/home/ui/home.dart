@@ -14,6 +14,13 @@ class Home extends StatefulWidget{
 }
 
 class _HomeState extends State<Home>{
+
+  @override
+  // create init state
+  void initState() {
+    homeBloc.add(HomeInitialEvent());
+    super.initState();
+  }
   final HomeBloc homeBloc = HomeBloc();
 
   @override
@@ -40,20 +47,41 @@ class _HomeState extends State<Home>{
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text("Bishop's Grocery App"),
-            backgroundColor: Colors.lightGreenAccent,
-            actions: [
-              IconButton(onPressed: (){
-                homeBloc.add(HomeProductWishlistNavigateEvent());
-              }, icon: const Icon(Icons.favorite_border)),
-              IconButton(onPressed: () {
-                homeBloc.add(HomeProductCartNavigateEvent());
-              }, icon: const Icon(Icons.shopping_bag_outlined))
-            ],
-          ),
-        );
+        // switch between states
+        switch (state.runtimeType) {
+        // if state is loading state -> return  loading indicator icon
+          case HomeLoadingState:
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+
+          // if state has loaded successfully -> return products display
+          case HomeLoadedSuccessState:
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Bishop's Grocery App"),
+                backgroundColor: Colors.lightGreenAccent,
+                actions: [
+                  IconButton(onPressed: (){
+                    homeBloc.add(HomeProductWishlistNavigateEvent());
+                  }, icon: const Icon(Icons.favorite_border)),
+                  IconButton(onPressed: () {
+                    homeBloc.add(HomeProductCartNavigateEvent());
+                  }, icon: const Icon(Icons.shopping_bag_outlined))
+                ],
+              ),
+            );
+          // if unable to load state -> return error message
+          case HomeErrorState:
+            return const Scaffold(
+              body: Center(
+                child: Text('An Error Occurred!'),
+              ),);
+          default:
+        }
+        return const Text("An Error Occurred");
       },
     );
   }
