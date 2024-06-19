@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_cart/data/grocery_data.dart';
 import 'package:flutter_cart/features/home/models/home_product.dart';
-import 'package:meta/meta.dart';
+// import 'package:meta/meta.dart';
 
 import 'home_event.dart';
 import 'home_state.dart';
@@ -35,7 +35,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeInitialEvent event, Emitter<HomeState> emit) async {
 
       emit(HomeLoadingState());
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 2));
       emit(HomeLoadedSuccessState(
           products: GroceryData.groceryProducts
           .map((e) => ProductDataModel(
