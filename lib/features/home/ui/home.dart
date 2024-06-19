@@ -4,6 +4,7 @@ import 'package:flutter_cart/features/cart/ui/cart.dart';
 import 'package:flutter_cart/features/home/bloc/home_bloc.dart';
 import 'package:flutter_cart/features/home/bloc/home_event.dart';
 import 'package:flutter_cart/features/home/bloc/home_state.dart';
+import 'package:flutter_cart/features/home/ui/product_tile_widget.dart';
 import 'package:flutter_cart/features/wishlist/ui/wishlist.dart';
 
 class Home extends StatefulWidget{
@@ -59,6 +60,7 @@ class _HomeState extends State<Home>{
 
           // if state has loaded successfully -> return products display
           case HomeLoadedSuccessState:
+            final successState = state as HomeLoadedSuccessState;
             return Scaffold(
               appBar: AppBar(
                 title: const Text("Bishop's Grocery App"),
@@ -72,6 +74,12 @@ class _HomeState extends State<Home>{
                   }, icon: const Icon(Icons.shopping_bag_outlined))
                 ],
               ),
+              // body to return ProductTileWidget
+              body: ListView.builder(
+                   itemCount: successState.products.length,
+                   itemBuilder: (context, index) {
+                 return ProductTileWidget(productDataModel: successState.products[index]);
+               }),
             );
           // if unable to load state -> return error message
           case HomeErrorState:
