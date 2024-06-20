@@ -76,7 +76,7 @@ class _HomeState extends State<Home>{
             return Scaffold(
               appBar: AppBar(
                 title: const Text("Bishop's Grocery App"),
-                backgroundColor: Colors.lightGreenAccent,
+                backgroundColor: Colors.blue,
                 actions: [
                   IconButton(onPressed: (){
                     homeBloc.add(HomeProductWishlistNavigateEvent());
