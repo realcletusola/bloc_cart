@@ -61,7 +61,7 @@ class ProductTileWidget extends StatelessWidget {
                   }, icon: const Icon(Icons.favorite_border)),
                   IconButton(onPressed: () {
                     homeBloc.add(HomeProductCartButtonEvent(
-                      clickecProduct: productDataModel,
+                      clickedProduct: productDataModel,
                     ));
                   }, icon: const Icon(Icons.shopping_bag_outlined))
                 ],
