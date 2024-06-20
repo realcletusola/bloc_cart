@@ -3,11 +3,14 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_cart/features/home/bloc/home_bloc.dart';
+import 'package:flutter_cart/features/home/bloc/home_event.dart';
 import 'package:flutter_cart/features/home/models/home_product.dart';
 
 class ProductTileWidget extends StatelessWidget {
   final ProductDataModel productDataModel;
-  const ProductTileWidget({super.key, required this.productDataModel});
+  final HomeBloc homeBloc;
+  const ProductTileWidget({super.key, required this.productDataModel, required this.homeBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +55,14 @@ class ProductTileWidget extends StatelessWidget {
               Row(
                 children: [
                   IconButton(onPressed: (){
-                    // homeBloc.add(HomeProductWishlistNavigateEvent());
+                    homeBloc.add(HomeProductWishlistButtonEvent(
+                      clickedProduct: productDataModel,
+                    ));
                   }, icon: const Icon(Icons.favorite_border)),
                   IconButton(onPressed: () {
-                    // homeBloc.add(HomeProductCartNavigateEvent());
+                    homeBloc.add(HomeProductCartButtonEvent(
+                      clickecProduct: productDataModel,
+                    ));
                   }, icon: const Icon(Icons.shopping_bag_outlined))
                 ],
               ),
