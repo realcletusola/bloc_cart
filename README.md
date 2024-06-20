@@ -1,4 +1,4 @@
 # flutter_cart
 
-A basic shoping cart using BLoc statemanagement in flutter
+A basic grocery shopping cart using BLoc state management in flutter
 
